@@ -5,14 +5,14 @@ import numpy as np
 # -------------------------------------------------
 # Load the trained Gradient Boosting model
 # -------------------------------------------------
-with open("model_gb.pkl", "rb") as file:
+with open("best_pickle_car_pred.pkl", "rb") as file:
     model_gb = pickle.load(file)
 
 # -------------------------------------------------
 # App Title and Description
 # -------------------------------------------------
 st.title("🚗 Car Price Prediction App")
-st.markdown("### Predict car prices using the trained Gradient Boosting Model")
+st.markdown("### Predict car prices using your trained Gradient Boosting Model")
 
 st.write("Enter the following car details to get an estimated price:")
 
@@ -31,14 +31,14 @@ compressionratio = st.number_input("Compression Ratio", min_value=7.0, max_value
 horsepower = st.number_input("Horsepower", min_value=40, max_value=200, value=100)
 
 # -------------------------------------------------
-# Convert inputs to numpy array (order must match training)
+# Prepare data for prediction
 # -------------------------------------------------
 input_data = np.array([[wheelbase, carlength, carwidth, carheight,
                         curbweight, enginesize, boreratio, stroke,
                         compressionratio, horsepower]])
 
 # -------------------------------------------------
-# Prediction
+# Predict button
 # -------------------------------------------------
 if st.button("Predict Price 💰"):
     predicted_price = model_gb.predict(input_data)[0]
